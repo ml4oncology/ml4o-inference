@@ -12,12 +12,30 @@
 This repository provides an easy-to-use solution to run inference servers on [Slurm](https://slurm.schedmd.com/overview.html)-managed computing clusters using [vLLM](https://docs.vllm.ai/en/latest/). **All scripts in this repository runs natively on the Vector Institute cluster environment**. To adapt to other environments, update the environment variables in [`vec_inf/client/slurm_vars.py`](vec_inf/client/slurm_vars.py), and the model config for cached model weights in [`vec_inf/config/models.yaml`](vec_inf/config/models.yaml) accordingly.
 
 ## Installation
-If you are using the Vector cluster environment, and you don't need any customization to the inference server environment, run the following to install package:
+### Environment Setup
+
+Use the provided [`Dockerfile`](Dockerfile) to build the Docker image **(GPU machine required)**:
 
 ```bash
-pip install vec-inf
+docker build --progress=plain -t vec-inf-image .
+docker save -o vec-inf-image.tar vec-inf-image:latest
 ```
-Otherwise, we recommend using the provided [`Dockerfile`](Dockerfile) to set up your own environment with the package
+
+### Upload to H4H Cluster
+
+- Upload the `.tar` file to the H4H Cluster.
+- **Important:** Before uploading, check the cluster to see if `.tar` file already exists!
+
+### Convert to SIF (Apptainer)
+
+Convert the Docker image `.tar` file to a `.sif` file using **Apptainer**:
+
+```bash
+# apptainer build vec-inf-image.sif docker-daemon://vec-inf-image:latest
+apptainer build vec-inf-image.sif docker-archive://vec-inf-image.tar
+```
+
+Feel free to also setup apptainer locally, convert the files locally, and upload the .sif file to the H4H cluster.
 
 ## Usage
 
