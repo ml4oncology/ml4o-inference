@@ -12,5 +12,6 @@ models:
     enforce_eager: false
     qos: m2
     time: 08:00:00
-    partition: a40
+    partition: gpu
+    account: gliugroup_gpu
     model_weights_parent_dir: /cluster/projects/gliugroup/2BLAST/LLMs
