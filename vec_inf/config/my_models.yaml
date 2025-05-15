@@ -6,12 +6,12 @@ models:
     gpus_per_node: 1
     num_nodes: 1
     vocab_size: 32768
-    max_model_len: 500
-    max_num_seqs: 256
-    pipeline_parallelism: true
-    enforce_eager: false
     qos: m2
     time: 08:00:00
     partition: gpu
     account: gliugroup_gpu
     model_weights_parent_dir: /cluster/projects/gliugroup/2BLAST/LLMs
+    vllm_args:
+      --max-model-len: 32768
+      --max-num-seqs: 256
+      --compilation-config: 3
