@@ -10,7 +10,6 @@ models:
     time: 08:00:00
     partition: gpu
     account: grantgroup_gpu
-    model_weights_parent_dir: /cluster/projects/gliugroup/2BLAST/LLMs
     vllm_args:
       --max-model-len: 32768
       --max-num-seqs: 256
@@ -26,7 +25,6 @@ models:
     time: 08:00:00
     partition: gpu
     account: grantgroup_gpu
-    model_weights_parent_dir: /cluster/projects/gliugroup/2BLAST/LLMs
     vllm_args:
       --max-model-len: 32768
       --max-num-seqs: 256
@@ -42,7 +40,6 @@ models:
     time: 08:00:00
     partition: gpu
     account: grantgroup_gpu
-    model_weights_parent_dir: /cluster/projects/gliugroup/2BLAST/LLMs
     vllm_args:
       --max-model-len: 32768
       --max-num-seqs: 256
@@ -58,7 +55,6 @@ models:
     time: 08:00:00
     partition: gpu
     account: grantgroup_gpu
-    model_weights_parent_dir: /cluster/projects/gliugroup/2BLAST/LLMs
     vllm_args:
       --max-model-len: 32768
       --max-num-seqs: 256
