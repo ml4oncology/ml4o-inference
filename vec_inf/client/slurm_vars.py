@@ -14,6 +14,7 @@ MAX_GPUS_PER_NODE = 8
 MAX_NUM_NODES = 16
 MAX_CPUS_PER_TASK = 128
 
+# Quality of Service (QoS) options for Slurm jobs (I don't think H4H supports these, so just ignore them)
 QOS = Literal[
     "normal",
     "m",
@@ -30,11 +31,7 @@ QOS = Literal[
 ]
 
 PARTITION = Literal[
-    "a40",
-    "a100",
-    "t4v1",
-    "t4v2",
-    "rtx6000",
+    "gpu"
 ]
 
 DEFAULT_ARGS = {
@@ -42,8 +39,8 @@ DEFAULT_ARGS = {
     "mem_per_node": "64G",
     "qos": "m2",
     "time": "08:00:00",
-    "partition": "a40",
+    "partition": "gpu",
     "data_type": "auto",
     "log_dir": "~/.vec-inf-logs",
-    "model_weights_parent_dir": "/model-weights",
+    "model_weights_parent_dir": "/cluster/projects/gliugroup/2BLAST/LLMs",
 }
