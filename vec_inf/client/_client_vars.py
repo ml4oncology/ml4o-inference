@@ -156,9 +156,9 @@ SLURM_SCRIPT_TEMPLATE: SlurmScriptTemplate = {
     "imports": "source {src_dir}/find_port.sh",
     "singularity_command": (
         "singularity exec --nv "
-        f"--bind {HOME_PATH}:{HOME_PATH} " # process writes to ~/.cache and ~/.vec-inf-logs, so need to bind the whole home dir
+        f"--bind {HOME_PATH}:{HOME_PATH} "  # process writes to ~/.cache and ~/.vec-inf-logs, so need to bind the whole home dir
         f"--bind {LLM_PATH}:{LLM_PATH} "
-        "--bind {model_weights_path}:{model_weights_path} " # so we can support models in custom directories outside the LLM_PATH
+        "--bind {model_weights_path}:{model_weights_path} "  # so we can support models in custom directories outside the LLM_PATH
         "--containall {singularity_image}"
     ),
     "activate_venv": "source {venv}/bin/activate",

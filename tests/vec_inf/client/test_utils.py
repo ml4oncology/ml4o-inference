@@ -132,6 +132,7 @@ def test_model_health_check_request_exception():
         result = model_health_check("test_job", 123, None)
         assert result == ("FAILED", "Connection error")
 
+
 @pytest.mark.xfail
 def test_load_config_default_only():
     """Test loading the actual default configuration file from the filesystem."""
@@ -148,6 +149,7 @@ def test_load_config_default_only():
     assert model.gpus_per_node == 4
     assert model.num_nodes == 2
     assert model.vllm_args["--max-model-len"] == 8192
+
 
 @pytest.mark.xfail
 def test_load_config_with_user_override(tmp_path, monkeypatch):

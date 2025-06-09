@@ -371,6 +371,7 @@ def test_launch_command_model_not_in_config_with_weights(
             "Warning: 'unknown-model' configuration not found in config, please ensure model configuration are properly set in command arguments"
         )
 
+
 @pytest.mark.xfail
 def test_launch_command_model_not_found(runner, debug_helper, test_paths, base_patches):
     """Test handling of a model that's neither in config nor has weights."""
@@ -414,6 +415,7 @@ def test_list_all_models(runner):
 
     assert result.exit_code == 0
     assert "Meta-Llama-3.1-8B" in result.output
+
 
 @pytest.mark.xfail
 def test_list_single_model(runner):
