@@ -21,18 +21,11 @@ SLURM_JOB_CONFIG_ARGS : dict
 from pathlib import Path
 from typing import TypedDict
 
-from vec_inf.client.slurm_vars import SINGULARITY_LOAD_CMD
+from vec_inf.client.slurm_vars import HOME_PATH, LLM_PATH, SINGULARITY_LOAD_CMD
 
 
 MODEL_READY_SIGNATURE = "INFO:     Application startup complete."
 SRC_DIR = str(Path(__file__).parent.parent)
-
-# required for singularity bind paths
-# TODO: check if it's actually the log dir that's needed to be binded instead of the home dir
-HOME_DIR = str(Path("~/").expanduser())
-# TODO: generate this dynamically via self.params['vllm_args']['--tokenizer']
-# TODO: check if we can simply bind the "/cluster/projects/gliugroup/2BLAST/LLMs/"
-TOKENIZER_DIR = str(Path("/cluster/projects/gliugroup/2BLAST/LLMs/Qwen2.5-14B-Instruct"))
 
 # Required fields for model configuration
 REQUIRED_FIELDS = {
@@ -163,9 +156,9 @@ SLURM_SCRIPT_TEMPLATE: SlurmScriptTemplate = {
     "imports": "source {src_dir}/find_port.sh",
     "singularity_command": (
         "singularity exec --nv "
-        "--bind {HOME_DIR}:{HOME_DIR} "
-        "--bind {TOKENIZER_DIR}:{TOKENIZER_DIR} "
-        "--bind {model_weights_path}:{model_weights_path} "
+        f"--bind {HOME_PATH}:{HOME_PATH} " # process writes to ~/.cache and ~/.vec-inf-logs, so need to bind the whole home dir
+        f"--bind {LLM_PATH}:{LLM_PATH} "
+        "--bind {model_weights_path}:{model_weights_path} " # so we can support models in custom directories outside the LLM_PATH
         "--containall {singularity_image}"
     ),
     "activate_venv": "source {venv}/bin/activate",

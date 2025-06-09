@@ -86,6 +86,7 @@ models:
     partition: gpu
     account: grantgroup_gpu
     vllm_args:
+      # WARNING: always make sure the tokenizer is in a directory that's binded in the singularity command
       --tokenizer: /cluster/projects/gliugroup/2BLAST/LLMs/Qwen2.5-1.5B-Instruct
       --max-model-len: 32768
       --max-num-seqs: 256

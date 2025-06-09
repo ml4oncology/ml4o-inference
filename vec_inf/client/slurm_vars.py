@@ -10,6 +10,8 @@ LD_LIBRARY_PATH = "/scratch/ssd001/pkgs/cudnn-11.7-v8.5.0.96/lib/:/scratch/ssd00
 SINGULARITY_IMAGE = "/cluster/projects/gliugroup/2BLAST/containers/vec-inf-image-2025-05-15.sif"
 SINGULARITY_LOAD_CMD = "module load singularity/3.11.0"
 VLLM_NCCL_SO_PATH = "/vec-inf/nccl/libnccl.so.2.18.1"
+LLM_PATH = "/cluster/projects/gliugroup/2BLAST/LLMs" # Path to all the tokenizers, model weights, etc.
+HOME_PATH = Path("~/").expanduser()
 MAX_GPUS_PER_NODE = 8
 MAX_NUM_NODES = 16
 MAX_CPUS_PER_TASK = 128
@@ -41,6 +43,6 @@ DEFAULT_ARGS = {
     "time": "08:00:00",
     "partition": "gpu",
     "data_type": "auto",
-    "log_dir": "~/.vec-inf-logs",
-    "model_weights_parent_dir": "/cluster/projects/gliugroup/2BLAST/LLMs",
+    "log_dir": f"{HOME_PATH}/.vec-inf-logs",
+    "model_weights_parent_dir": LLM_PATH,
 }
