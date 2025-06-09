@@ -14,6 +14,35 @@ models:
       --max-model-len: 32768
       --max-num-seqs: 256
       --compilation-config: 3
+  Meta-Llama-3-70B-Instruct-Q5_K_M.gguf:
+    model_family: Meta-Llama-3
+    model_variant: 70B
+    model_type: LLM
+    gpus_per_node: 1
+    num_nodes: 1
+    vocab_size: 152064
+    qos: m2
+    time: 05:00:00
+    partition: gpu
+    account: grantgroup_gpu
+    vllm_args:
+      --tokenizer: /cluster/projects/gliugroup/2BLAST/LLMs/Meta-Llama-3-70B-Instruct
+      --max-model-len: 32768
+      --max-num-seqs: 256
+  Meta-Llama-3.1-8B:
+    model_family: Meta-Llama-3.1
+    model_variant: 8B
+    model_type: LLM
+    gpus_per_node: 1
+    num_nodes: 1
+    vocab_size: 128256
+    qos: m2
+    time: 08:00:00
+    partition: gpu
+    vllm_args:
+      --max-model-len: 131072
+      --max-num-seqs: 256
+      --compilation-config: 3
   Mistral-7B-Instruct-v0.3:
     model_family: Mistral
     model_variant: 7B-Instruct-v0.3
