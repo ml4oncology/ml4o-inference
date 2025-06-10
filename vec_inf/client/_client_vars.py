@@ -21,12 +21,11 @@ SLURM_JOB_CONFIG_ARGS : dict
 from pathlib import Path
 from typing import TypedDict
 
-from vec_inf.client.slurm_vars import SINGULARITY_LOAD_CMD
+from vec_inf.client.slurm_vars import HOME_PATH, LLM_PATH, SINGULARITY_LOAD_CMD
 
 
 MODEL_READY_SIGNATURE = "INFO:     Application startup complete."
 SRC_DIR = str(Path(__file__).parent.parent)
-
 
 # Required fields for model configuration
 REQUIRED_FIELDS = {
@@ -155,7 +154,13 @@ SLURM_SCRIPT_TEMPLATE: SlurmScriptTemplate = {
         "singularity exec {singularity_image} ray stop",
     ],
     "imports": "source {src_dir}/find_port.sh",
-    "singularity_command": "singularity exec --nv --bind {model_weights_path}:{model_weights_path} --containall {singularity_image}",
+    "singularity_command": (
+        "singularity exec --nv "
+        f"--bind {HOME_PATH}:{HOME_PATH} "  # process writes to ~/.cache and ~/.vec-inf-logs, so need to bind the whole home dir
+        f"--bind {LLM_PATH}:{LLM_PATH} "
+        "--bind {model_weights_path}:{model_weights_path} "  # so we can support models in custom directories outside the LLM_PATH
+        "--containall {singularity_image}"
+    ),
     "activate_venv": "source {venv}/bin/activate",
     "server_setup": {
         "single_node": [
