@@ -6,8 +6,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 # No GPUs visible during build
 ARG CUDA_VISIBLE_DEVICES=none
 
-# Specify CUDA architectures
-ARG TORCH_CUDA_ARCH_LIST="6.0;7.0"
+# Specify CUDA architectures -> 8.9: L40S, 9.0: H100
+ARG TORCH_CUDA_ARCH_LIST="8.9;9.0"
 
 # Set the Python version
 ARG PYTHON_VERSION=3.10.12
