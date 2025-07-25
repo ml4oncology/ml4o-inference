@@ -71,6 +71,10 @@ jobs:
         run: |
           uv run pytest tests/test_imports.py
 
+      - name: Import GPG public key for Codecov
+        run: |
+          curl -fsSL https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --import
+
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5.4.3
         with:
