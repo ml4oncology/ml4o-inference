@@ -2,8 +2,10 @@ paths:
   # NOTE: ld_library_path and vllm_nccl_so_path may be leftover code and not really used
   # If you want to remove them, you need to modify _slurm_vars.py, _slurm_templates.py, and _slurm_script_generator.py
   ld_library_path: "/scratch/ssd001/pkgs/cudnn-11.7-v8.5.0.96/lib/:/scratch/ssd001/pkgs/cuda-11.7/targets/x86_64-linux/lib/"
-  image_path: "/cluster/projects/gliugroup/2BLAST/containers/vec-inf-image-2025-05-15.sif"
   vllm_nccl_so_path: "/vec-inf/nccl/libnccl.so.2.18.1"
+
+  # NOTE: for gguf files, need to use 2025-05-15
+  image_path: "/cluster/projects/gliugroup/2BLAST/containers/vec-inf-image-2025-07-25.sif"
 
 containerization:
   module_load_cmd: "module load singularity/3.11.0"
@@ -28,5 +30,4 @@ default_args:
   partition: "gpu"
   data_type: "auto"
   log_dir: "~/.vec-inf-logs"
-  model_weights_parent_dir: "/cluster/projects/gliugroup/2BLAST/LLMs"
-  bind: ",~/"
+  model_weights_parent_dir: "/model-weights"
