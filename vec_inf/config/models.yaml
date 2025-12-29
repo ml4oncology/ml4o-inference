@@ -1068,13 +1068,17 @@ models:
     account: grantgroup_gpu
     work_dir: "/tmp"
     vllm_args:
-      # NOTES: vLLM pre-allocates KV cache memory based on max-model-len, regardless of actual prompt length.
-      #        A large max-model-len will eat up a large chunk of GPU memory.
+      # pre-allocates KV cache memory based on max-model-len, regardless of actual prompt length. A large max-model-len
+      # will eat up a large chunk of GPU memory, leaving little memory for the actual inputs/outputs
       # --max-model-len: 40960
+      --max-model-len: 2048
+
+      # allocates a much larger KV cache memory, can be used dynamically for input tokens and output tokens and cached 
+      # prefix blocks. Do not worry if most of the GPU RAM is taken, it already includes the memory for inputs/outputs
+      --enable-prefix-caching: true
+
       # --gpu-memory-utilization 0.90
       # --enable-chunked-prefill: true
-      --enable-prefix-caching: true
-      --max-model-len: 8192
   Qwen_Qwen3-14B-IQ4_XS.gguf:
     model_family: Qwen3
     model_variant: 14B
@@ -1087,5 +1091,5 @@ models:
     work_dir: "/tmp"
     vllm_args:
       --enable-prefix-caching: true
-      --max-model-len: 8192
+      --max-model-len: 2048
       # --tokenizer: /cluster/projects/gliugroup/2BLAST/LLMs/Qwen3-14B
