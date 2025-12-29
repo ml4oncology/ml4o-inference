@@ -27,6 +27,50 @@ If you'd like to use `vec-inf` on your own Slurm cluster, you would need to upda
 * The package would try to look for cached configuration files in your environment before using the default configuration. The default cached configuration directory path points to `/model-weights/vec-inf-shared`, you would need to create an `environment.yaml` and a `models.yaml` following the format of these files in [`vec_inf/config`](vec_inf/config/).
 * The package would also look for an enviroment variable `VEC_INF_CONFIG_DIR`. You can put your `environment.yaml` and `models.yaml` in a directory of your choice and set the enviroment variable `VEC_INF_CONFIG_DIR` to point to that location.
 
+
+## Installation - H4H
+### Environment Setup
+
+Use the provided [`Dockerfile`](Dockerfile) to build the Docker image **(GPU machine required)**:
+
+```bash
+docker build --progress=plain -t ml4o-inf-image .
+docker save -o ml4o-inf-image.tar ml4o-inf-image:latest
+```
+
+### Upload to H4H Cluster
+
+- Upload the `.tar` file to the H4H Cluster.
+- **Important:** Before uploading, check the cluster to see if `.tar` file already exists!
+
+### Convert to SIF (Apptainer)
+
+Convert the Docker image `.tar` file to a `.sif` file using **Apptainer**:
+
+```bash
+module load apptainer # NOTE: current version v1.4.1
+export APPTAINER_CACHEDIR=/tmp # NOTE: in case your home directory runs out of space
+# apptainer build vec-inf-image.sif docker-daemon://vec-inf-image:latest
+apptainer build ml4o-inf-image.sif docker-archive://ml4o-inf-image.tar
+```
+
+Feel free to also setup apptainer locally, convert the files locally, and upload the .sif file to the H4H cluster.
+
+## Usage - H4H
+```bash
+# Option1
+vec-inf launch Qwen3-14B --bind ~ --account grantgroup_gpu --work-dir /tmp
+
+# Option2
+export VEC_INF_ACCOUNT=grantgroup_gpu
+export VEC_INF_WORK_DIR=/tmp
+vec-inf launch Qwen3-14B --bind ~
+
+# Option3
+# set account and work_dir in models.yaml
+vec-inf launch Qwen3-14B --bind ~
+```
+
 ## Usage
 
 Vector Inference provides 2 user interfaces, a CLI and an API

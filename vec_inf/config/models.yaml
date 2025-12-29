@@ -1032,17 +1032,6 @@ models:
     resource_type: l40s
     vllm_args:
       --max-model-len: 40960
-  Qwen3-14B:
-    model_family: Qwen3
-    model_variant: 14B
-    model_type: LLM
-    gpus_per_node: 1
-    num_nodes: 1
-    vocab_size: 151936
-    time: 08:00:00
-    resource_type: l40s
-    vllm_args:
-      --max-model-len: 40960
   Qwen3-32B:
     model_family: Qwen3
     model_variant: 32B
@@ -1067,3 +1056,36 @@ models:
     vllm_args:
       --tensor-parallel-size: 2
       --max-model-len: 32768
+  ############################ ML4O ############################
+  Qwen3-14B:
+    model_family: Qwen3
+    model_variant: 14B
+    model_type: LLM
+    gpus_per_node: 1
+    num_nodes: 1
+    vocab_size: 151936
+    time: 08:00:00
+    account: grantgroup_gpu
+    work_dir: "/tmp"
+    vllm_args:
+      # NOTES: vLLM pre-allocates KV cache memory based on max-model-len, regardless of actual prompt length.
+      #        A large max-model-len will eat up a large chunk of GPU memory.
+      # --max-model-len: 40960
+      # --gpu-memory-utilization 0.90
+      # --enable-chunked-prefill: true
+      --enable-prefix-caching: true
+      --max-model-len: 8192
+  Qwen_Qwen3-14B-IQ4_XS.gguf:
+    model_family: Qwen3
+    model_variant: 14B
+    model_type: LLM
+    gpus_per_node: 1
+    num_nodes: 1
+    vocab_size: 151936
+    time: 08:00:00
+    account: grantgroup_gpu
+    work_dir: "/tmp"
+    vllm_args:
+      --enable-prefix-caching: true
+      --max-model-len: 8192
+      # --tokenizer: /cluster/projects/gliugroup/2BLAST/LLMs/Qwen3-14B
