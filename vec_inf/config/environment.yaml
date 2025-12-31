@@ -1,6 +1,4 @@
 paths:
-  # NOTE: For gguf files, use "/cluster/projects/gliugroup/2BLAST/containers/vec-inf-image-2025-05-15.sif". 
-  #       You MUST be on backup-2025-07-24 branch
   image_path: "/cluster/projects/gliugroup/2BLAST/containers/ml4o-inf-image-2025-12-23.sif"
 
 containerization:
