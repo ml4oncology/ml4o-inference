@@ -28,7 +28,7 @@ default_args:
   resource_type: "l40"
   exclude: ""
   nodelist: ""
-  bind: ""
+  bind: "/cluster/projects/gliugroup/2BLAST/LLMs"
   venv: "apptainer"
   data_type: "auto"
   log_dir: "~/.ml4o-inf-logs"

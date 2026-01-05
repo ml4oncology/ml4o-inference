@@ -1071,7 +1071,7 @@ models:
       # pre-allocates KV cache memory based on max-model-len, regardless of actual prompt length. A large max-model-len
       # will eat up a large chunk of GPU memory, leaving little memory for the actual inputs/outputs
       # --max-model-len: 40960
-      --max-model-len: 2048
+      --max-model-len: 5120
 
       # allocates a much larger KV cache memory, can be used dynamically for input tokens and output tokens and cached 
       # prefix blocks. Do not worry if most of the GPU RAM is taken, it already includes the memory for inputs/outputs
@@ -1091,5 +1091,5 @@ models:
     work_dir: "/tmp"
     vllm_args:
       --enable-prefix-caching: true
-      --max-model-len: 2048
-      # --tokenizer: /cluster/projects/gliugroup/2BLAST/LLMs/Qwen3-14B
+      --max-model-len: 5120
+      --tokenizer: /cluster/projects/gliugroup/2BLAST/LLMs/Qwen3-14B
